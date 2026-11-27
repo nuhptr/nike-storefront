@@ -1,0 +1,37 @@
+---
+import type { CustomerReview } from "@models/storefront.model"
+import ReviewCard from "@views/components/ReviewCard.astro"
+import { badgeVariants } from "@views/components/ui/badge"
+import { cn } from "@views/components/ui/cn"
+
+/**
+ * Customer Reviews section rendering verified buyer testimonials.
+ */
+interface Props {
+    /** Customer testimonials supplied by `StorefrontViewModel.customerReviews`. */
+    reviews: readonly CustomerReview[]
+}
+
+const { reviews } = Astro.props
+---
+
+<section class="py-16 bg-surface-tint sm:py-24">
+    <div class="px-6 storefront-container sm:px-12 lg:px-16">
+        <div class="flex flex-col items-center max-w-xl mx-auto text-center">
+            <span class={cn(badgeVariants({ variant: "outline" }))}>Testimonials</span>
+            <h2 class="mt-4 text-4xl font-bold tracking-tight font-display text-foreground sm:text-5xl">
+                What Our<span class="text-primary">Customers</span>Say?
+            </h2>
+            <p class="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
+                Hear genuine stories from our satisfied customers about their exceptional
+                experiences with us.
+            </p>
+        </div>
+
+        <div class="grid max-w-4xl grid-cols-1 gap-8 mx-auto mt-14 md:grid-cols-2">
+            {reviews.map((review) => (
+                <ReviewCard review={review} />
+            ))}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,42 @@
+---
+import { createStorefrontViewModel } from "@viewmodels/storefront.viewmodel"
+import { NavbarIsland } from "@views/components/NavbarIsland"
+import BaseLayout from "@views/layouts/BaseLayout.astro"
+import CustomerReviewsSection from "@views/sections/CustomerReviewsSection.astro"
+import FooterSection from "@views/sections/FooterSection.astro"
+import HeroSection from "@views/sections/HeroSection.astro"
+import PopularProductsSection from "@views/sections/PopularProductsSection.astro"
+import ServicesSection from "@views/sections/ServicesSection.astro"
+import SpecialOffersSection from "@views/sections/SpecialOffersSection.astro"
+import SubscribeSection from "@views/sections/SubscribeSection.astro"
+import SuperQualitySection from "@views/sections/SuperQualitySection.astro"
+
+/**
+ * Root landing page composition binder (MVVM + ISP).
+ *
+ * Responsibilities:
+ * - Instantiates `StorefrontViewModel` via `createStorefrontViewModel()` at build/request time.
+ * - Passes only narrow, read-only prop slices (`vm.navbar`, `vm.hero`, etc.) to each section.
+ * - Controls Astro Islands hydration:
+ *   - `NavbarIsland` uses `client:load` so the above-the-fold mobile menu drawer is interactive immediately.
+ *   - Static sections (`PopularProductsSection`, `ServicesSection`, etc.) ship 0 KB of client JS.
+ */
+const vm = createStorefrontViewModel()
+---
+
+<BaseLayout meta={vm.meta}>
+    <!-- `client:load` hydrates the navbar immediately on page load for instant mobile drawer interaction. -->
+    <NavbarIsland {...vm.navbar} client:load />
+
+    <main>
+        <HeroSection {...vm.hero} />
+        <PopularProductsSection {...vm.popularProducts} />
+        <SuperQualitySection />
+        <ServicesSection {...vm.services} />
+        <SpecialOffersSection />
+        <CustomerReviewsSection {...vm.customerReviews} />
+        <SubscribeSection />
+    </main>
+
+    <FooterSection {...vm.footer} />
+</BaseLayout>

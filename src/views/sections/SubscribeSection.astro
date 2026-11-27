@@ -1,0 +1,31 @@
+---
+import { SubscribeFormIsland } from "@views/components/SubscribeFormIsland"
+
+/**
+ * Newsletter subscription section.
+ *
+ * Hydration strategy:
+ * - Uses `client:visible` on `<SubscribeFormIsland />` so Astro defers downloading
+ *   and hydrating the React form bundle until the section enters the viewport
+ *   (via `IntersectionObserver`), keeping initial page load lightweight.
+ */
+---
+
+<section id="contact-us" class="px-6 py-16 storefront-container sm:px-12 sm:py-24 lg:px-16">
+    <div class="flex flex-col items-start justify-between gap-10 p-8 border rounded-3xl border-border/80 bg-surface-tint/60 sm:p-12 lg:flex-row lg:items-center">
+        <div class="max-w-md">
+            <h2 class="text-3xl font-bold leading-tight tracking-tight font-display text-foreground sm:text-4xl">
+                Sign Up for<span class="text-primary">Updates</span>&amp; Newsletter
+            </h2>
+            <p class="mt-3 text-base text-muted-foreground">
+                Get early access to seasonal launches, colorway drops, and member-only offers.
+            </p>
+        </div>
+
+        <!--
+          `client:visible` delays hydrating this React island until it becomes visible
+          in the viewport, avoiding unnecessary JS execution during initial render.
+        -->
+        <SubscribeFormIsland client:visible />
+    </div>
+</section>
