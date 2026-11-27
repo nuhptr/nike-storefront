@@ -10,7 +10,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-Strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D24.0.0-339933?logo=nodedotjs&logoColor=white)](https://nodejs.org)
 
-[Live Demo](https://nike-evolve.vercel.app/) · [Architecture](#architecture-mvvm--solid) · [Getting Started](#getting-started)
+[Live Demo](https://nike-storefronts.vercel.app/) · [Architecture](#architecture-mvvm--solid) · [Getting Started](#getting-started)
 
 </div>
 
