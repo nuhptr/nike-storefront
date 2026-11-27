@@ -1,0 +1,35 @@
+---
+import type { Product } from "@models/storefront.model"
+import ProductCard from "@views/components/ProductCard.astro"
+import { badgeVariants } from "@views/components/ui/badge"
+import { cn } from "@views/components/ui/cn"
+
+/**
+ * Popular Products catalog section rendering a responsive grid of `ProductCard` items.
+ */
+interface Props {
+    /** Featured footwear products supplied by `StorefrontViewModel.popularProducts`. */
+    products: readonly Product[]
+}
+
+const { products } = Astro.props
+---
+
+<section id="products" class="px-6 py-16 storefront-container sm:px-12 sm:py-24 lg:px-16">
+    <div class="flex flex-col items-start gap-4">
+        <span class={cn(badgeVariants({ variant: "secondary" }))}>Featured Catalog</span>
+        <h2 class="text-4xl font-bold tracking-tight font-display text-foreground sm:text-5xl">
+            Our<span class="text-primary">Popular</span>Products
+        </h2>
+        <p class="max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            Experience top-notch quality and style with our sought-after selections. Discover a
+            world of comfort, design, and value.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 mt-12 sm:grid-cols-2 lg:grid-cols-4">
+        {products.map((product) => (
+            <ProductCard product={product} />
+        ))}
+    </div>
+</section>

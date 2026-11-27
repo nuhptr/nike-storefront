@@ -1,0 +1,24 @@
+---
+import type { ServiceHighlight } from "@models/storefront.model"
+import ServiceCard from "@views/components/ServiceCard.astro"
+
+/**
+ * Storefront Services section displaying shipping, payment security, and support guarantees.
+ */
+interface Props {
+    /** Service highlights supplied by `StorefrontViewModel.services`. */
+    services: readonly ServiceHighlight[]
+}
+
+const { services } = Astro.props
+---
+
+<section
+    aria-label="Storefront guarantees"
+    class="px-6 py-12 storefront-container sm:px-12 sm:py-16 lg:px-16">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+        {services.map((service) => (
+            <ServiceCard service={service} />
+        ))}
+    </div>
+</section>

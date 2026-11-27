@@ -1,0 +1,158 @@
+/**
+ * Global Tailwind CSS v4 stylesheet and semantic design tokens.
+ * Aligned with the devl.dev / coss ui / Base UI token architecture.
+ */
+@import "tailwindcss";
+
+@theme inline {
+    /* Typography */
+    --font-display: "Palanquin", ui-sans-serif, system-ui, sans-serif;
+    --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+
+    /* Semantic design tokens */
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    /* Brand accents */
+    --color-coral: #ff6452;
+    --color-coral-hover: #ea503e;
+    --color-surface-tint: #f5f6ff;
+    --color-hero-canvas: #eceeff;
+
+    /* Radii & Shadows */
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --radius-xl: 1.5rem;
+    --text-hero: 5.125rem;
+    --text-hero--line-height: 1.08;
+    --shadow-elevated: 0 12px 36px -8px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
+    --shadow-card-hover: 0 20px 44px -12px rgba(15, 23, 42, 0.14);
+    --drop-shadow-hero-shoe: 0 24px 32px rgba(15, 23, 42, 0.18);
+}
+
+:root {
+    --background: #ffffff;
+    --foreground: #0f172a;
+    --card: #ffffff;
+    --card-foreground: #0f172a;
+    --popover: #ffffff;
+    --popover-foreground: #0f172a;
+    --primary: #ff6452;
+    --primary-foreground: #ffffff;
+    --secondary: #f5f6ff;
+    --secondary-foreground: #0f172a;
+    --muted: #f4f5f7;
+    --muted-foreground: #64748b;
+    --accent: #f1f5f9;
+    --accent-foreground: #0f172a;
+    --destructive: #d93025;
+    --destructive-foreground: #ffffff;
+    --border: #e2e8f0;
+    --input: #cbd5e1;
+    --ring: #ff6452;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        font-family: var(--font-sans);
+        background-color: var(--background);
+        color: var(--foreground);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+    }
+
+    * {
+        border-color: var(--border);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: var(--font-display);
+    }
+}
+
+/** Max-width layout container shared across storefront sections. */
+.storefront-container {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+}
+
+/** Decorative canvas and thumbnail backdrops for the Hero sneaker showcase. */
+.hero-canvas-bg {
+    background-image: url("/images/backgrounds/collection-background.svg");
+}
+
+.shoe-thumb-bg {
+    background-image: url("/images/backgrounds/thumbnail-background.svg");
+}
+
+/**
+ * Interactive choice card for Hero shoe thumbnails.
+ * Uses a constant transparent border so selection never causes layout shift.
+ */
+.shoe-choice-card {
+    border: 2px solid transparent;
+    transition:
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        transform 180ms ease;
+}
+
+.shoe-choice-card:has(> input:checked) {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+.shoe-choice-card:has(> input:focus-visible) {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+}
+
+/** Post-interaction email validation states (:user-invalid / :user-valid). */
+.newsletter-input:is(:user-invalid, .user-invalid-fallback) {
+    border-color: var(--destructive);
+    background-color: #fef2f2;
+}
+
+.newsletter-input:user-valid {
+    border-color: #16a34a;
+}
+
+/** Keeps content accessible to screen readers while visually hidden. */
+.visually-hidden:where(:not(:focus-within, :active)) {
+    position: absolute !important;
+    clip-path: inset(50%) !important;
+    overflow: hidden !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    white-space: nowrap !important;
+}
